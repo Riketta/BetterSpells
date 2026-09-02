@@ -71,7 +71,7 @@ dotnet build -p:RimWorldDir="C:\Path\To\RimWorld"
 The output lands in `Assemblies/BetterSpells.dll`; the whole `BetterSpells` folder
 can be copied or linked into the game's `Mods` directory.
 
-## How it works (for developers)
+## Technical notes
 
 Three Harmony postfixes, no transpilers:
 
