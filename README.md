@@ -1,97 +1,89 @@
 # Better Spells
 
-A RimWorld 1.6 mod adding **optional autocasting** for click-and-forget abilities and
-**dismissable cooldown-ready letters**. Nothing is active by default.
+A RimWorld 1.6 mod adding optional **autocasting** for click-and-forget abilities and
+**dismissable cooldown-ready letters**. Nothing is active by default - you opt in per
+feature and per spell.
+
+Works with Royalty psycasts, Ideology role and ritual abilities, Biotech, Anomaly,
+Odyssey and modded abilities alike: nothing is hardcoded, eligibility is derived from
+each ability's definition.
 
 ## Autocasting
 
-- An extra toggle button appears **right next to the ability's cast button** (like the
-  deathrest auto-wake button). The setting is **per spell and shared by every pawn**;
-  with several pawns selected the buttons merge into a single toggle.
-- Two-layer state: the mod settings checkbox means **this spell may be autocast**
-  (it starts on when checked); the in-game button flips the live **on/off** state and
-  stays visible in both states, so a spell switched off can be re-enabled anytime.
-- When a spell is on, it is queued automatically for every pawn that has it as soon
-  as its cooldown finishes and it can be cast. Casts go in as **ordinary queued
-  jobs** (`jobQueue.EnqueueLast`), so sleep, current work and player orders are never
-  interrupted.
-- Eligibility is derived from ability defs at runtime - nothing is hardcoded:
-  - `targetRequired == false` (vanilla self-casts these without targeting), and
-  - not world-cell targeted, no confirmation dialog, not a ritual/speech starter.
-- Targeted abilities (unit or area, e.g. Skip, Unnatural healing), world-targeted
-  abilities, ritual speeches and confirmation-dialog casts are never autocast.
+- Eligible spells get an extra toggle button **right next to the cast button** (like
+  the deathrest auto-wake button). It flips autocasting on and off, stays visible in
+  both states, and is shared by all pawns - selecting several pawns shows a single
+  merged toggle.
+- While on, the spell is queued for every pawn that has it as soon as its cooldown
+  finishes and it can be cast. Casts are enqueued as ordinary queued jobs, so sleep,
+  current work and your own orders are never interrupted.
+- Eligible spells are the ones that need no target - self-buffs and auras like
+  Neuroquake or Combat command. Abilities that need a picked target or a world tile,
+  start rituals, or show a confirmation dialog are never autocast.
 
-Spells can also be allowed/disallowed in **Mod settings**, with search - the list
-shows each spell's live on/off state. By default the in-game toggle button only
-appears for spells allowed there; a setting can show it for every eligible spell
-instead.
+Spells are allowed per spell in **Mod settings** (searchable, with live on/off state);
+allowed spells start on, and the in-game button is the live switch. A setting can
+show the button for every eligible spell instead of only the allowed ones.
 
 ## Cooldown-ready letters
 
-When an ability's cooldown completes, a **letter** arrives (same system as raid,
-orbital trader and masterwork notifications - dismissable, with a detailed per-pawn
-breakdown; click to jump to the pawn):
+When an ability's cooldown completes, a letter arrives - the same system as raid,
+orbital trader and masterwork notifications. It is dismissable, lists every pawn
+whose spell just finished its cooldown, and jumps to them when clicked.
 
-- one letter per ability per ready period (a new cooldown means a new letter later);
-- pawns whose instances of the same spell finish together share one letter;
-- spells handled by autocasting **never** letter;
-- abilities whose total cooldown is under the configurable threshold (**default 12
-  hours**) never letter;
-- targeted abilities are included by default (that's the point: Unnatural healing is
-  ready and you should know), configurable;
-- letter style is configurable: neutral (trader-like), positive (masterwork-like), or
-  raid-like (red, threat sound).
+- Autocast spells don't letter - they are cast automatically.
+- Abilities with very short cooldowns (under a configurable threshold, default
+  12 hours) don't letter.
+- Targeted abilities (e.g. Unnatural healing) letter too - that's often exactly when
+  you want to be told - but can be excluded.
+- Letter style: neutral (trader-like), positive (masterwork-like) or raid-like
+  (red, threat sound).
 
-## Debug logging
+Letters fire on the same tick and from the same event the game's own ability-ready
+notification uses, so they work for pawns that are asleep, drafted, in a mental
+break or traveling with a caravan.
 
-Mod settings have a debug toggle. When on, the mod logs (prefixed `[BetterSpells]`)
-eligibility decisions per ability def, cooldown-ready transitions, letter sends and
-skip reasons, autocast attempts with skip reasons, and toggle clicks.
+## Settings
 
-## Files
+Everything is optional and off by default: master switches for autocasting and
+letters, per-spell allow list, letter style, cooldown threshold, targeted-ability
+inclusion, button visibility, and a debug logging toggle that traces eligibility
+decisions, autocast attempts, and letter sends (prefixed `[BetterSpells]`) in the
+game log.
 
-```
-About/               mod metadata
-Languages/English/   translations
-Source/BetterSpells  C# source + csproj
-Assemblies/          compiled BetterSpells.dll + 0Harmony.dll (2.3.3)
-```
+## Compatibility
 
-## Building
+- RimWorld 1.6, all DLCs optional; no DLC content is required.
+- Modded abilities are picked up automatically from their definitions.
+- Safe to add or remove at any time: the mod stores only its own settings and keeps
+  no data inside your saves.
 
-Requires the .NET SDK. The csproj defaults to
-`E:\SteamLibrary\steamapps\common\RimWorld`; override with your install path:
+## Building from source
+
+Requires the .NET SDK. The csproj assumes a default Steam install path; point it at
+yours if needed:
 
 ```
 cd Source/BetterSpells
 dotnet build -p:RimWorldDir="C:\Path\To\RimWorld"
 ```
 
-Output lands in `Assemblies/BetterSpells.dll`. The whole `BetterSpells` folder can be
-symlinked/copied into the game's `Mods` directory.
+The output lands in `Assemblies/BetterSpells.dll`; the whole `BetterSpells` folder
+can be copied or linked into the game's `Mods` directory.
 
-## Technical notes
+## How it works (for developers)
 
-- Harmony patches: `TickManager.DoSingleTick` (postfix, flushes letters and drives
-  the periodic autocast scan), `Ability.CooldownTick` (postfix - the same method
-  and tick the built-in cooldown notification uses, so ready events are caught for
-  every pawn: asleep, in a mental break, drafted, on a caravan) and
-  `Ability.GetGizmos` (postfix, injects the toggle after the cast command).
-- Cooldown tracking is event-driven and self-seeding: abilities seen mid-cooldown
-  after a save load are picked up automatically, and the ready edge fires on the
-  exact tick vanilla's own notification fires. Tracking state is session-scoped;
-  the ability scan is wrapped in a defensive try/catch (like vanilla's alert loop),
-  so a broken modded ability cannot break the tick loop.
-- Autocast attempts are gated on player control (deliberately not fired during
-  mental breaks); once the break ends, the periodic scan casts the still-ready
-  ability. Letters are gated on faction only (stable during breaks).
-- The toggle gizmo is cached per ability instance (ConditionalWeakTable), matching
-  vanilla's cached cast gizmo - no per-frame allocations or translation lookups.
-- Autocast retries back off exponentially (250 ticks doubling to 2500) while an
-  ability's queued job keeps vanishing without a cast; the counter resets whenever
-  the ability is observed casting or on cooldown.
-- Multi-pawn gizmo merging: the toggle overrides `GroupsWith` so same-spell toggles
-  collapse into one button, and `InheritInteractionsFrom` returns false (the setting
-  is global, so the grid's activate-all-in-group behavior must not run).
-- Eligibility and settings-list caches rebuild automatically when the loaded ability
-  def count changes (dev "reload mods").
+Three Harmony postfixes, no transpilers:
+
+- `Ability.CooldownTick` - the ready event, same source and tick as the vanilla
+  ability-ready notification; drives cooldown tracking and letters.
+- `TickManager.DoSingleTick` - flushes pending letters and periodically retries
+  autocast attempts.
+- `Ability.GetGizmos` - injects the autocast toggle after the cast command.
+
+Autocast jobs reuse the vanilla self-cast path (`Ability.GetJob` + job queue), so
+modded ability classes keep working. Tracking state is session-scoped (no letters
+piled up after loading a save), and the periodic scan is exception-guarded so a
+broken modded ability cannot break the tick loop.
+
+Ships with Harmony 2.3.3 (MIT, see `Assemblies/0Harmony.LICENSE.txt`).
