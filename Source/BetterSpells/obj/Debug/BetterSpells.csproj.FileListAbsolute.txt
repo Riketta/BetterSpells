@@ -1,0 +1,10 @@
+D:\Dev\RimWorldDev\BetterSpells\Source\BetterSpells\obj\Debug\BetterSpells.csproj.AssemblyReference.cache
+D:\Dev\RimWorldDev\BetterSpells\Source\BetterSpells\obj\Debug\BetterSpells.GeneratedMSBuildEditorConfig.editorconfig
+D:\Dev\RimWorldDev\BetterSpells\Source\BetterSpells\obj\Debug\BetterSpells.csproj.CoreCompileInputs.cache
+D:\Dev\RimWorldDev\BetterSpells\Assemblies\BetterSpells.dll
+D:\Dev\RimWorldDev\BetterSpells\Source\BetterSpells\obj\Debug\BetterSpells.dll
+D:\Dev\RimWorldDev\_Mods\BetterSpells\Source\BetterSpells\obj\Debug\BetterSpells.csproj.AssemblyReference.cache
+D:\Dev\RimWorldDev\_Mods\BetterSpells\Source\BetterSpells\obj\Debug\BetterSpells.GeneratedMSBuildEditorConfig.editorconfig
+D:\Dev\RimWorldDev\_Mods\BetterSpells\Source\BetterSpells\obj\Debug\BetterSpells.csproj.CoreCompileInputs.cache
+D:\Dev\RimWorldDev\_Mods\BetterSpells\Source\BetterSpells\obj\Debug\BetterSpells.dll
+D:\Dev\RimWorldDev\_Mods\BetterSpells\Assemblies\BetterSpells.dll

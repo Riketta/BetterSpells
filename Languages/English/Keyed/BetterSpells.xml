@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LanguageData>
+  <BetterSpells_SettingsCategory>Better Spells</BetterSpells_SettingsCategory>
+
+  <BetterSpells_Intro>Autocasting and cooldown-ready letters for abilities. Everything here is opt-in: nothing runs until you enable it. Autocastable spells are the ones that need no target - click-and-forget self-buffs and auras (e.g. Neuroquake, Combat command). Checking a spell below allows autocasting for it (it starts on); the actual on/off state is toggled by the button next to the spell's cast button in game. Targeted, world-targeted, ritual and confirmation-dialog abilities can never be autocast; they can still get ready letters.</BetterSpells_Intro>
+
+  <BetterSpells_EnableAutocasting>Enable autocasting</BetterSpells_EnableAutocasting>
+  <BetterSpells_EnableAutocastingTip>Master switch. When on, every spell allowed below (and turned on via its in-game button) is queued automatically for each colonist as soon as its cooldown finishes and it can be cast. Casts are enqueued as ordinary queued jobs, so sleep and your own orders are never interrupted.</BetterSpells_EnableAutocastingTip>
+
+  <BetterSpells_ShowTogglesForAll>Show autocast buttons for all eligible spells</BetterSpells_ShowTogglesForAll>
+  <BetterSpells_ShowTogglesForAllTip>When off, the in-game autocast toggle button (next to the cast button) only appears for spells allowed in this list. When on, every eligible spell gets the button. The button flips the live on/off state; turning a spell off keeps the button so it can be re-enabled anytime.</BetterSpells_ShowTogglesForAllTip>
+
+  <BetterSpells_EnableLetters>Enable cooldown-ready letters</BetterSpells_EnableLetters>
+  <BetterSpells_EnableLettersTip>Master switch. When on, a dismissable letter (like raid, orbital trader or masterwork notifications) arrives each time an ability's cooldown finishes. Click the letter to jump to the pawn. Spells handled by autocasting never letter.</BetterSpells_EnableLettersTip>
+
+  <BetterSpells_LettersIncludeTargeted>Letters also for targeted abilities</BetterSpells_LettersIncludeTargeted>
+  <BetterSpells_LettersIncludeTargetedTip>Include abilities that cannot be autocast (they need a picked target, e.g. Unnatural healing, skip). Letters then cover every ability with a cooldown.</BetterSpells_LettersIncludeTargetedTip>
+
+  <BetterSpells_LetterStyle>Letter style</BetterSpells_LetterStyle>
+  <BetterSpells_LetterStyleNeutral>Neutral (like orbital trader)</BetterSpells_LetterStyleNeutral>
+  <BetterSpells_LetterStylePositive>Positive (like masterwork)</BetterSpells_LetterStylePositive>
+  <BetterSpells_LetterStyleRaid>Raid-like (red, threat sound)</BetterSpells_LetterStyleRaid>
+
+  <BetterSpells_MinCooldownHours>Min cooldown to letter (hours)</BetterSpells_MinCooldownHours>
+  <BetterSpells_MinCooldownHoursTip>Abilities whose total cooldown is shorter than this never get a ready letter. Default 12 hours; 0 letters every cooldown.</BetterSpells_MinCooldownHoursTip>
+
+  <BetterSpells_DebugLogging>Enable debug logging</BetterSpells_DebugLogging>
+  <BetterSpells_DebugLoggingTip>Rich logging to the game log: eligibility decisions per ability def, cooldown transitions, autocast attempts with skip reasons, letters sent or skipped, toggle clicks. Prefixed [BetterSpells].</BetterSpells_DebugLoggingTip>
+  <BetterSpells_ClearSpellList>Clear per-spell autocast list</BetterSpells_ClearSpellList>
+
+  <BetterSpells_SpellsListHeader>Autocastable spells ({COUNT}): {ALLOWED} allowed, {ACTIVE} autocasting. Checking allows autocasting (starts on); toggle it in game with the button next to cast.</BetterSpells_SpellsListHeader>
+  <BetterSpells_StateOn>(autocast on)</BetterSpells_StateOn>
+  <BetterSpells_StateOff>(autocast off)</BetterSpells_StateOff>
+
+  <BetterSpells_AutocastLabel>Autocast</BetterSpells_AutocastLabel>
+  <BetterSpells_AutocastDesc>Toggle automatic casting of {ABILITY}.\n\nWhen on, {ABILITY} is queued automatically for every colonist that has it, as soon as its cooldown finishes and it can be cast. The cast is enqueued as a normal queued job, so sleep and player orders are not interrupted. Turning it off keeps this button available so you can re-enable it anytime.\n\nThis setting is shared by all colonists with this ability and is stored in mod settings.</BetterSpells_AutocastDesc>
+
+  <BetterSpells_LetterLabelSingle>{0} ready</BetterSpells_LetterLabelSingle>
+  <BetterSpells_LetterLabel>{0} ready ({1} pawns)</BetterSpells_LetterLabel>
+  <BetterSpells_LetterText>The following pawns finished the cooldown of this ability and it is ready to use:</BetterSpells_LetterText>
+  <BetterSpells_LetterLine>{PAWN} (cooldown was {COOLDOWN}){TAIL}</BetterSpells_LetterLine>
+  <BetterSpells_LetterLineAutocastable></BetterSpells_LetterLineAutocastable>
+  <BetterSpells_LetterLineTargeted> - needs a target, cannot be autocast</BetterSpells_LetterLineTargeted>
+</LanguageData>
