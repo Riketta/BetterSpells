@@ -58,19 +58,6 @@ game log.
 - Safe to add or remove at any time: the mod stores only its own settings and keeps
   no data inside your saves.
 
-## Building from source
-
-Requires the .NET SDK. The csproj assumes a default Steam install path; point it at
-yours if needed:
-
-```
-cd Source/BetterSpells
-dotnet build -p:RimWorldDir="C:\Path\To\RimWorld"
-```
-
-The output lands in `Assemblies/BetterSpells.dll`; the whole `BetterSpells` folder
-can be copied or linked into the game's `Mods` directory.
-
 ## Technical notes
 
 Three Harmony postfixes, no transpilers:
@@ -87,3 +74,16 @@ piled up after loading a save), and the periodic scan is exception-guarded so a
 broken modded ability cannot break the tick loop.
 
 Ships with Harmony 2.3.3 (MIT, see `Assemblies/0Harmony.LICENSE.txt`).
+
+## Building from source
+
+Requires the .NET SDK. The csproj assumes a default Steam install path; point it at
+yours if needed:
+
+```
+cd Source/BetterSpells
+dotnet build -p:RimWorldDir="C:\Path\To\RimWorld"
+```
+
+The output lands in `Assemblies/BetterSpells.dll`; the whole `BetterSpells` folder
+can be copied or linked into the game's `Mods` directory.
