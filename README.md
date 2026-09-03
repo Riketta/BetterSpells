@@ -78,11 +78,12 @@ Ships with Harmony 2.3.3 (MIT, see `Assemblies/0Harmony.LICENSE.txt`).
 ## Building from source
 
 Requires the .NET SDK. The csproj assumes a default Steam install path; point it at
-yours if needed:
+yours if needed. Build the Release configuration for the dll you ship - a plain
+`dotnet build` defaults to Debug:
 
 ```
 cd Source/BetterSpells
-dotnet build -p:RimWorldDir="C:\Path\To\RimWorld"
+dotnet build -c Release -p:RimWorldDir="C:\Path\To\RimWorld"
 ```
 
 The output lands in `Assemblies/BetterSpells.dll`; the whole `BetterSpells` folder
