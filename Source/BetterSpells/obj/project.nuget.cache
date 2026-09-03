@@ -1,8 +1,12 @@
 {
   "version": 2,
-  "dgSpecHash": "TYdbYhujbU0=",
+  "dgSpecHash": "SvSW184OAC0=",
   "success": true,
   "projectFilePath": "D:\\Dev\\RimWorldDev\\_Mods\\BetterSpells\\Source\\BetterSpells\\BetterSpells.csproj",
-  "expectedPackageFiles": [],
+  "expectedPackageFiles": [
+    "C:\\Users\\Riketta\\.nuget\\packages\\lib.harmony\\2.3.3\\lib.harmony.2.3.3.nupkg.sha512",
+    "C:\\Users\\Riketta\\.nuget\\packages\\lib.harmony.ref\\2.3.3\\lib.harmony.ref.2.3.3.nupkg.sha512",
+    "C:\\Users\\Riketta\\.nuget\\packages\\system.reflection.emit\\4.7.0\\system.reflection.emit.4.7.0.nupkg.sha512"
+  ],
   "logs": []
 }

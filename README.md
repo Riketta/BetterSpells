@@ -74,9 +74,9 @@ modded ability classes keep working. Tracking state is session-scoped (no letter
 piled up after loading a save), and the periodic scan is exception-guarded so a
 broken modded ability cannot break the tick loop.
 
-Harmony 2.3.3 (MIT, see `Assemblies/0Harmony.LICENSE.txt`) is bundled in `Assemblies/`
-as the build-time reference but excluded from Workshop uploads - the published mod
-uses the Steam Workshop Harmony mod (declared as a dependency in `About.xml`).
+Patches compile against the Lib.Harmony NuGet package (2.3.3, excluded from build
+output); at runtime the published mod uses the Steam Workshop Harmony mod (declared
+as a dependency in `About.xml`).
 
 ## Build from source
 
