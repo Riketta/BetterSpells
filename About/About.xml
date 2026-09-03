@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8" ?>
 <ModMetaData>
   <name>Better Spells</name>
   <author>Riketta</author>
@@ -7,11 +7,12 @@
   <supportedVersions>
     <li>1.6</li>
   </supportedVersions>
-  <description>Optional autocasting for click-and-forget abilities, and dismissable cooldown-ready letters.
+  <description
+    >Optional autocasting for click-and-forget abilities, and dismissable cooldown-ready letters.
 
 Autocasting works like deathrest auto-wake: an extra toggle button next to the cast button. Spells are allowed per spell in mod settings (they start on when allowed); the button flips the live on/off state and stays visible in both states, shared by all pawns - with several pawns selected the buttons merge into one. While on, the spell is queued as a normal queued job the moment its cooldown finishes - sleep and your own orders are never interrupted. Only abilities that need no target can be autocast (self-buffs and auras like Neuroquake or Combat command); targeted spells, world-targeted spells, ritual speeches and confirmation-dialog casts are never autocast.
 
-Cooldown-ready notifications arrive as dismissable letters (like raid, orbital trader or masterwork notifications) with a per-pawn breakdown - much harder to miss than the default message. One letter per ability; spells handled by autocasting never letter, and abilities with cooldowns under 12 hours (configurable) are skipped. Letter style is configurable up to raid-like red.
+Cooldown-ready notifications arrive as dismissable letters (like raid, orbital trader or masterwork notifications) with a per-pawn breakdown - much harder to miss than the default message. One letter per ability; spells handled by autocasting never letter, and abilities with cooldowns under 12 hours (configurable) are skipped. Letter style is configurable up to raid-like red. Anomaly psychic rituals (Chronophagy, Void provocation, ...) normally only produce a small message when their global cooldown ends - optionally they get the same letters.
 
 Nothing is hardcoded: eligibility is derived from ability defs, so DLC and modded abilities work automatically. Everything is off by default. Enable autocasting and/or letters in mod settings, then pick the spells (settings list or the in-game toggle buttons).
 
@@ -20,7 +21,8 @@ Source code &amp; details: https://github.com/Riketta/BetterSpells</description>
     <li>
       <packageId>brrainz.harmony</packageId>
       <displayName>Harmony</displayName>
-      <steamWorkshopURL>https://steamcommunity.com/sharedfiles/filedetails/?id=2009463077</steamWorkshopURL>
+      <steamWorkshopURL
+            >https://steamcommunity.com/sharedfiles/filedetails/?id=2009463077</steamWorkshopURL>
     </li>
   </modDependencies>
   <loadAfter>

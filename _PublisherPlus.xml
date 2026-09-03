@@ -4,5 +4,6 @@
   <Excluded>
     <exclude>.git</exclude>
     <exclude>Source</exclude>
+    <exclude>STEAM.md</exclude>
   </Excluded>
 </Configuration>
