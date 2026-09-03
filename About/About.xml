@@ -1,9 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ModMetaData>
   <name>Better Spells</name>
-  <author>
-    <li>Riketta</li>
-  </author>
+  <author>Riketta</author>
   <packageId>Riketta.BetterSpells</packageId>
   <supportedVersions>
     <li>1.6</li>
@@ -14,5 +12,17 @@ Autocasting works like deathrest auto-wake: an extra toggle button next to the c
 
 Cooldown-ready notifications arrive as dismissable letters (like raid, orbital trader or masterwork notifications) with a per-pawn breakdown - much harder to miss than the default message. One letter per ability; spells handled by autocasting never letter, and abilities with cooldowns under 12 hours (configurable) are skipped. Letter style is configurable up to raid-like red.
 
-Nothing is hardcoded: eligibility is derived from ability defs, so DLC and modded abilities work automatically. Everything is off by default. Enable autocasting and/or letters in mod settings, then pick the spells (settings list or the in-game toggle buttons).</description>
+Nothing is hardcoded: eligibility is derived from ability defs, so DLC and modded abilities work automatically. Everything is off by default. Enable autocasting and/or letters in mod settings, then pick the spells (settings list or the in-game toggle buttons).
+
+Source code &amp; details: https://github.com/Riketta/BetterSpells</description>
+  <modDependencies>
+    <li>
+      <packageId>brrainz.harmony</packageId>
+      <displayName>Harmony</displayName>
+      <steamWorkshopURL>https://steamcommunity.com/sharedfiles/filedetails/?id=2009463077</steamWorkshopURL>
+    </li>
+  </modDependencies>
+  <loadAfter>
+    <li>brrainz.harmony</li>
+  </loadAfter>
 </ModMetaData>

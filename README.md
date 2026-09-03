@@ -53,6 +53,7 @@ game log.
 
 ## Compatibility
 
+- Requires the [Harmony](https://steamcommunity.com/sharedfiles/filedetails/?id=2009463077) mod.
 - RimWorld 1.6, all DLCs optional; no DLC content is required.
 - Modded abilities are picked up automatically from their definitions.
 - Safe to add or remove at any time: the mod stores only its own settings and keeps
@@ -73,13 +74,15 @@ modded ability classes keep working. Tracking state is session-scoped (no letter
 piled up after loading a save), and the periodic scan is exception-guarded so a
 broken modded ability cannot break the tick loop.
 
-Ships with Harmony 2.3.3 (MIT, see `Assemblies/0Harmony.LICENSE.txt`).
+Harmony 2.3.3 (MIT, see `Assemblies/0Harmony.LICENSE.txt`) is bundled in `Assemblies/`
+as the build-time reference but excluded from Workshop uploads - the published mod
+uses the Steam Workshop Harmony mod (declared as a dependency in `About.xml`).
 
-## Building from source
+## Build from source
 
-Requires the .NET SDK. The csproj assumes a default Steam install path; point it at
-yours if needed. Build the Release configuration for the dll you ship - a plain
-`dotnet build` defaults to Debug:
+Requires the .NET SDK. The csproj defaults to `E:\SteamLibrary\steamapps\common\RimWorld`;
+override with your install path. Build the Release configuration for the dll you ship -
+a plain `dotnet build` defaults to Debug:
 
 ```
 cd Source/BetterSpells
@@ -87,4 +90,4 @@ dotnet build -c Release -p:RimWorldDir="C:\Path\To\RimWorld"
 ```
 
 The output lands in `Assemblies/BetterSpells.dll`; the whole `BetterSpells` folder
-can be copied or linked into the game's `Mods` directory.
+can be copied or symlinked into the game's `Mods` directory.
