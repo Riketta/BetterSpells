@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Reflection;
 using System.Runtime.CompilerServices;
 using HarmonyLib;
 using RimWorld;
@@ -41,6 +42,27 @@ namespace BetterSpells
 		public static void Postfix(Ability __instance)
 		{
 			BetterSpellsCore.OnAbilityCooldownTick(__instance);
+		}
+	}
+
+	/// <summary>Psychic rituals (Anomaly) are not abilities: Chronophagy, Void provocation
+	/// and friends are PsychicRitualDefs whose global per-def cooldowns live in
+	/// GameComponent_PsychicRitualManager, which also emits the built-in "can be cast
+	/// again" message in the same tick it clears an expired entry. This prefix hands the
+	/// same just-expired set to the letter engine before the original runs.</summary>
+	[HarmonyPatch(typeof(GameComponent_PsychicRitualManager), nameof(GameComponent_PsychicRitualManager.GameComponentTick))]
+	public static class GameComponent_PsychicRitualManager_GameComponentTick_BetterSpellsPatch
+	{
+		// The cooldown map is private. The public GetAvailableTick cannot distinguish "not
+		// on cooldown" from "expires exactly now", so the map is read directly; a dictionary
+		// reference read costs nothing per tick and the map is empty without Anomaly.
+		private static readonly FieldInfo ritualCooldownsField = AccessTools.Field(
+			typeof(GameComponent_PsychicRitualManager), "ritualCooldowns");
+
+		public static void Prefix(GameComponent_PsychicRitualManager __instance)
+		{
+			BetterSpellsCore.OnPsychicRitualTick(
+				ritualCooldownsField?.GetValue(__instance) as Dictionary<PsychicRitualDef, int>);
 		}
 	}
 

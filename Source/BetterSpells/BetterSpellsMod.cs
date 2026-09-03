@@ -18,6 +18,11 @@ namespace BetterSpells
 		/// when true (default) targeted abilities like Unnatural healing letter too.</summary>
 		public bool lettersIncludeTargeted = true;
 
+		/// <summary>Anomaly psychic rituals (Chronophagy, Void provocation, ...) are a
+		/// separate system from abilities; when true they also letter when their global
+		/// cooldown ends. Off by default.</summary>
+		public bool ritualReadyLetters;
+
 		/// <summary>0 = Neutral (like orbital trader), 1 = Positive (like masterwork),
 		/// 2 = ThreatBig (raid-like red, most aggressive).</summary>
 		public int letterStyle;
@@ -48,6 +53,7 @@ namespace BetterSpells
 			Scribe_Values.Look(ref autocastEnabled, "autocastEnabled", false);
 			Scribe_Values.Look(ref readyLettersEnabled, "readyLettersEnabled", false);
 			Scribe_Values.Look(ref lettersIncludeTargeted, "lettersIncludeTargeted", true);
+			Scribe_Values.Look(ref ritualReadyLetters, "ritualReadyLetters", false);
 			Scribe_Values.Look(ref letterStyle, "letterStyle", 0);
 			Scribe_Values.Look(ref minCooldownHours, "minCooldownHours", BetterSpellsCore.DefaultMinCooldownHours);
 			Scribe_Values.Look(ref showTogglesForAllEligible, "showTogglesForAllEligible", false);
@@ -179,6 +185,7 @@ namespace BetterSpells
 			string showToggles = "BetterSpells_ShowTogglesForAll".Translate();
 			string enableLetters = "BetterSpells_EnableLetters".Translate();
 			string includeTargeted = "BetterSpells_LettersIncludeTargeted".Translate();
+			string ritualLetters = "BetterSpells_RitualReadyLetters".Translate();
 			string letterStyleLabel = "BetterSpells_LetterStyle".Translate();
 			string minCooldownLabel = "BetterSpells_MinCooldownHours".Translate();
 
@@ -193,6 +200,7 @@ namespace BetterSpells
 			if (settings.readyLettersEnabled)
 			{
 				headerHeight += RowHeight(includeTargeted, width);
+				headerHeight += RowHeight(ritualLetters, width);
 				headerHeight += Mathf.Max(34f, RowHeight(letterStyleLabel, width));
 				headerHeight += Text.LineHeight + 2f;
 			}
@@ -233,6 +241,8 @@ namespace BetterSpells
 			{
 				listCheckbox(listing, includeTargeted, ref settings.lettersIncludeTargeted,
 					"BetterSpells_LettersIncludeTargetedTip");
+				listCheckbox(listing, ritualLetters, ref settings.ritualReadyLetters,
+					"BetterSpells_RitualReadyLettersTip");
 				string[] styleNames = new string[3]
 				{
 					"BetterSpells_LetterStyleNeutral".Translate(), "BetterSpells_LetterStylePositive".Translate(),

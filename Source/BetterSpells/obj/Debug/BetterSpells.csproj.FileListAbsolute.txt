@@ -8,3 +8,4 @@ D:\Dev\RimWorldDev\_Mods\BetterSpells\Source\BetterSpells\obj\Debug\BetterSpells
 D:\Dev\RimWorldDev\_Mods\BetterSpells\Source\BetterSpells\obj\Debug\BetterSpells.csproj.CoreCompileInputs.cache
 D:\Dev\RimWorldDev\_Mods\BetterSpells\Source\BetterSpells\obj\Debug\BetterSpells.dll
 D:\Dev\RimWorldDev\_Mods\BetterSpells\Assemblies\BetterSpells.dll
+D:\Dev\RimWorldDev\_Mods\BetterSpells\Source\BetterSpells\obj\Debug\BetterSpells.sourcelink.json

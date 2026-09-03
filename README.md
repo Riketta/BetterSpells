@@ -36,20 +36,25 @@ whose spell just finished its cooldown, and jumps to them when clicked.
   12 hours) don't letter.
 - Targeted abilities (e.g. Unnatural healing) letter too - that's often exactly when
   you want to be told - but can be excluded.
+- Anomaly psychic rituals (Chronophagy, Void provocation, Blood rain, ...) are not
+  abilities: the game normally only shows a small message when their global cooldown
+  ends. Optionally they get the same dismissable letter too (off by default; rituals
+  are never autocast).
 - Letter style: neutral (trader-like), positive (masterwork-like) or raid-like
   (red, threat sound).
 
 Letters fire on the same tick and from the same event the game's own ability-ready
 notification uses, so they work for pawns that are asleep, drafted, in a mental
-break or traveling with a caravan.
+break or traveling with a caravan. Psychic ritual letters fire on the same tick
+the game's own ritual-ready message appears.
 
 ## Settings
 
 Everything is optional and off by default: master switches for autocasting and
 letters, per-spell allow list, letter style, cooldown threshold, targeted-ability
-inclusion, button visibility, and a debug logging toggle that traces eligibility
-decisions, autocast attempts, and letter sends (prefixed `[BetterSpells]`) in the
-game log.
+and psychic ritual inclusion, button visibility, and a debug logging toggle that
+traces eligibility decisions, autocast attempts, and letter sends (prefixed
+`[BetterSpells]`) in the game log.
 
 ## Compatibility
 
@@ -61,13 +66,18 @@ game log.
 
 ## Technical notes
 
-Three Harmony postfixes, no transpilers:
+Four Harmony patches, no transpilers:
 
 - `Ability.CooldownTick` - the ready event, same source and tick as the vanilla
   ability-ready notification; drives cooldown tracking and letters.
 - `TickManager.DoSingleTick` - flushes pending letters and periodically retries
   autocast attempts.
 - `Ability.GetGizmos` - injects the autocast toggle after the cast command.
+- `GameComponent_PsychicRitualManager.GameComponentTick` (prefix) - Anomaly psychic
+  rituals are a separate system from abilities; this vanilla component clears their
+  global per-def cooldowns and emits the small built-in ready message. The prefix
+  reads the same just-expired set (the private cooldown map, via reflection) and
+  turns it into letters.
 
 Autocast jobs reuse the vanilla self-cast path (`Ability.GetJob` + job queue), so
 modded ability classes keep working. Tracking state is session-scoped (no letters

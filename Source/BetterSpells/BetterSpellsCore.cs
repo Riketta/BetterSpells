@@ -55,6 +55,10 @@ namespace BetterSpells
 
 		private static readonly List<Pawn> letterTargets = new List<Pawn>();
 
+		/// <summary>Per tick: psychic rituals whose global cooldown just ended (vanilla is
+		/// about to clear and message them).</summary>
+		private static readonly List<PsychicRitualDef> expiredRituals = new List<PsychicRitualDef>();
+
 		private static Game trackedGame;
 
 		/// <summary>Called every game tick via a Harmony postfix on TickManager.DoSingleTick.</summary>
@@ -383,6 +387,72 @@ namespace BetterSpells
 					return LetterDefOf.ThreatBig;
 				default:
 					return LetterDefOf.NeutralEvent;
+			}
+		}
+
+		/// <summary>Called every tick via a Harmony prefix on
+		/// GameComponent_PsychicRitualManager.GameComponentTick - the same event and tick
+		/// the built-in "can be cast again" message uses. The map entries whose end tick
+		/// has been reached are exactly the rituals vanilla is about to clear and message,
+		/// so no separate tracking state is needed: map membership is the cooldown state,
+		/// and the game saves the map itself.</summary>
+		internal static void OnPsychicRitualTick(Dictionary<PsychicRitualDef, int> ritualCooldowns)
+		{
+			if (ritualCooldowns == null || ritualCooldowns.Count == 0)
+			{
+				return;
+			}
+			BetterSpellsSettings settings = BetterSpellsMod.Instance?.settings;
+			if (settings == null || !settings.readyLettersEnabled || !settings.ritualReadyLetters)
+			{
+				return;
+			}
+			int now = Find.TickManager.TicksGame;
+			float minTicks = settings.minCooldownHours * 2500f;
+			expiredRituals.Clear();
+			foreach (KeyValuePair<PsychicRitualDef, int> pair in ritualCooldowns)
+			{
+				if (pair.Value <= now)
+				{
+					expiredRituals.Add(pair.Key);
+				}
+			}
+			for (int i = 0; i < expiredRituals.Count; i++)
+			{
+				PsychicRitualDef def = expiredRituals[i];
+				// Same condition the vanilla message applies: a ritual locked behind
+				// unfinished research is not announced as ready.
+				if (def.researchPrerequisite != null && !def.researchPrerequisite.IsFinished)
+				{
+					if (BetterSpellsMod.DebugLogging)
+					{
+						DebugLog($"ritual ready, no letter (research unfinished): {def.defName}");
+					}
+					continue;
+				}
+				if (def.cooldownHours * 2500f < minTicks)
+				{
+					if (BetterSpellsMod.DebugLogging)
+					{
+						DebugLog($"ritual ready, no letter (cooldown {def.cooldownHours}h below threshold): {def.defName}");
+					}
+					continue;
+				}
+				SendPsychicRitualLetter(def);
+			}
+			expiredRituals.Clear();
+		}
+
+		/// <summary>Psychic ritual cooldowns are global per def, so there is no pawn or
+		/// spot to jump to; the letter is plain dismissable text.</summary>
+		private static void SendPsychicRitualLetter(PsychicRitualDef def)
+		{
+			Find.LetterStack.ReceiveLetter(
+				"BetterSpells_RitualReadyLabel".Translate(def.LabelCap),
+				"BetterSpells_RitualLetterText".Translate(def.LabelCap), LetterDefFor());
+			if (BetterSpellsMod.DebugLogging)
+			{
+				DebugLog($"ritual letter sent: {def.defName}");
 			}
 		}
 

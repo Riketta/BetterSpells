@@ -16,6 +16,9 @@
   <BetterSpells_LettersIncludeTargeted>Letters also for targeted abilities</BetterSpells_LettersIncludeTargeted>
   <BetterSpells_LettersIncludeTargetedTip>Include abilities that cannot be autocast (they need a picked target, e.g. Unnatural healing, skip). Letters then cover every ability with a cooldown.</BetterSpells_LettersIncludeTargetedTip>
 
+  <BetterSpells_RitualReadyLetters>Letters also for psychic rituals (Anomaly)</BetterSpells_RitualReadyLetters>
+  <BetterSpells_RitualReadyLettersTip>Chronophagy, Void provocation, Blood rain and other Anomaly psychic rituals are a separate system from abilities: when their global cooldown finishes, the game only shows a small message. When on, these rituals also get the dismissable letter (same style and cooldown threshold). Rituals are never autocast - they need a psychic ritual spot, participants and often targets.</BetterSpells_RitualReadyLettersTip>
+
   <BetterSpells_LetterStyle>Letter style</BetterSpells_LetterStyle>
   <BetterSpells_LetterStyleNeutral>Neutral (like orbital trader)</BetterSpells_LetterStyleNeutral>
   <BetterSpells_LetterStylePositive>Positive (like masterwork)</BetterSpells_LetterStylePositive>
@@ -41,4 +44,7 @@
   <BetterSpells_LetterLine>{PAWN} (cooldown was {COOLDOWN}){TAIL}</BetterSpells_LetterLine>
   <BetterSpells_LetterLineAutocastable></BetterSpells_LetterLineAutocastable>
   <BetterSpells_LetterLineTargeted> - needs a target, cannot be autocast</BetterSpells_LetterLineTargeted>
+
+  <BetterSpells_RitualReadyLabel>{0} ready to cast</BetterSpells_RitualReadyLabel>
+  <BetterSpells_RitualLetterText>The psychic ritual {0} finished its global cooldown and can be cast again at a psychic ritual spot.</BetterSpells_RitualLetterText>
 </LanguageData>
